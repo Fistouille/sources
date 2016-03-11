@@ -7,4 +7,5 @@ Alibert Jerôme - Bardet Guillaume - Bogi Vincent - Bouder Clément - Bourniquel
 https://basecamp.com/2577854/projects/11731326
 
 ###Infos utiles
-Robot Atmel : ....
+- Robot Atmel
+- 3 branches : master <- dev <- features
