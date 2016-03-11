@@ -1,7 +1,7 @@
 # Robot-Atmel / sources
 
-#Équipe 2
+###Équipe 2
 Alibert Jerôme - Bardet Guillaume - Bogi Vincent - Bouder Clément - Bourniquel Florian - Bruneau Florian
 
-#Infos utiles
+###Infos utiles
 Robot Atmel : ....
