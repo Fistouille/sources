@@ -1,7 +1,6 @@
 # Robot-Atmel / sources
 
-#Notes diverse
-Équipe 2
+#Équipe 2
 Alibert Jerôme
 Bardet Guillaume
 Bogi Vincent
