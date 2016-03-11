@@ -8,4 +8,4 @@ https://basecamp.com/2577854/projects/11731326
 
 ###Infos utiles
 - Robot Atmel
-- 3 branches : master <- dev <- features
+- 3 branches :  master <-- dev <-- features
