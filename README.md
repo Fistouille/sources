@@ -7,6 +7,7 @@ Alibert Jerôme - Bardet Guillaume - Bogi Vincent - Bouder Clément - Bourniquel
 https://basecamp.com/2577854/projects/11731326
 
 ###Infos utiles
+<<<<<<< HEAD
 - Robot Atmel
 - 3 branches :  master <-- dev <-- features
 
@@ -22,3 +23,10 @@ https://basecamp.com/2577854/projects/11731326
 - Mission 0 : Élection du leader par broadcast (Dernier arrivé)
 - Mission 1 : Se comporter comme le leader
 - Mission 2 : Suivi du leader
+=======
+Robot Atmel : ....
+
+3 branches : master <-- dev <-- features
+
+seuil arret servo1 (gauche): 88 - 99 / seuil arret servo2 (droite): 89 - 100
+>>>>>>> cc6e2a2d2307f0759051d70130e65778571f72f4
