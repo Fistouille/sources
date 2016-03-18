@@ -12,8 +12,8 @@ https://basecamp.com/2577854/projects/11731326
 
 ###Missions
 ####Autonomie : 
-Mission 0 : Arrêt d'urgence avec Blynk.cc
-Mission 1 : Avancer tout droit avec arrêt obstacle
+- Mission 0 : Arrêt d'urgence avec Blynk.cc
+- Mission 1 : Avancer tout droit avec arrêt obstacle
 Mission 2 : Avancer et éviter les obstacles en tournant à gauche quand l'obstacle est à moins de 5 cm
 Mission 3 : Suiveur de ligne
 Mission 4 : Suiveur de mur pour sortir d'un labyrinthe
