@@ -25,4 +25,3 @@ seuil arret servo1 (gauche): 88 - 99 / seuil arret servo2 (droite): 89 - 100
 - Mission 0 : Élection du leader par broadcast (Dernier arrivé)
 - Mission 1 : Se comporter comme le leader
 - Mission 2 : Suivi du leader
->>>>>>> 7a5e2773d2b6035c7797a9c01ed76b8ae2edc7d8
