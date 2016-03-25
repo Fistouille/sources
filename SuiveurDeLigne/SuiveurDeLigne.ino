@@ -1,31 +1,59 @@
 void setup() {
-  // put your setup code here, to run once:
+  /* CAPTEUR NIVEAU DE GRIS */
   Serial.begin(9600);
 }
 
-int val;
-int moyenne;
-int somme;
+int valeurCapteur;
+int palierCouleurBlanc = 130;
  
 void loop() {
   // put your main code here, to run repeatedly:
-  moyenne = 0;
-  somme = 0;
+  
+  int a = ligneBlanche();
+  if(a == 1){
+    Serial.println("1");
 
-  for(int i = 1; i < 10 ; ++i){
-    val=analogRead(2);
+    /*MOTEUR Avancer*/
+    
+  }else if(a == 0){
+    Serial.println("0");
 
-    somme = somme + val;
-    
-    
+    /*Retrouver ligne*/
+
+    /*
+  
+    //arret
+    //Tourner à gauche
+    //avancer 25cm
+    //Si pas 1
+    //arret
+    //demi-tour
+    //avancer 50cm
+    //Si pas 1
+    //arret
+    //demi tour
+    // avancer 25 cm
+    // arret
+    // Tourner a droite
+    // avancer 25 cm
+    // Si pas 1
+    // arret 
+    // demi tour
+    // Avancer
+
+    */
   }
-  moyenne = somme / 9;
-  Serial.println(moyenne);
-  if(365 < moyenne){
-    Serial.println("NOIR");
-  }else if( 365 > moyenne){
-    Serial.println("BLANC");
-  }
-    
+  
   delay(900);
+}
+
+int ligneBlanche(){
+  valeurCapteur = analogRead(2);
+  Serial.println(valeurCapteur);
+  
+  if(palierCouleurBlanc < valeurCapteur){
+    return 0;
+  }else if( palierCouleurBlanc > valeurCapteur){
+    return 1;
+  }
 }
