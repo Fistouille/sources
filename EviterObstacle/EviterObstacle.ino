@@ -19,14 +19,27 @@ void loop() {
   lireValeur(0);
 }
 
+void gauche() {
+   myservo.write(77);    // vitesse tournant
+   myservo2.write(78); 
+}
+
+void avancer() {
+   myservo.write(78);    // vitesse en avancant                           
+   myservo2.write(110); 
+}
+
 void lireValeur(int numeroPin) {
   int pin = analogRead(numeroPin);
   if(pin > 660) {
     Serial.println("alerte!");
+    gauche();
     delay(200);
+    
   }
   else {
     Serial.println("tout va bien");
+    avancer();
     delay(200);
   }
 }
