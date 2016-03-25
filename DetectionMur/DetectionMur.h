@@ -1,13 +1,19 @@
-test(Pres)
-{
-  int x=660;
-  assertMoreOrEqual(recupererDistanceCapteur(0),x);
+int return500 (int x) {
+  return 500;
+}
+
+int return700 (int x) {
+  return 700;
 }
 
 test(Colision)
 {
-  bool x=true;
-  assertEqual(x,isColision(0));
+  assertTrue(isColision(&return700,0));
+}
+
+test(NoColision)
+{
+  assertFalse(isColision(&return500,0));
 }
 
 

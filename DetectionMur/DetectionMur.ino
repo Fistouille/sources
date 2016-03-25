@@ -18,8 +18,10 @@ int recupererDistanceCapteur(int numeroPin) {
   return val;
 }
 
-bool isColision(int numeroPin) {
-  if(recupererDistanceCapteur(numeroPin) > 660) {
+//typedef int (*PtrFonct)(int);
+
+bool isColision(int (*pt)(int),int numeroPin) {
+  if((*pt)(numeroPin) > 660) {
     return true;
   }
   else {
