@@ -9,13 +9,13 @@ void setup()
   myServo.attach(12);
   myServo2.attach(13);
   myServo.write(130);
-  myServo.write(53);  
+  myServo2.write(53);  
   Serial.begin(9600);
 }
 
 void loop()
 {
-  if(isColision(&recupererDistanceCapteur, 0){
+  if(isColision(&recupererDistanceCapteur,0)){
     myServo.write(90);
     myServo2.write(90);
   }
@@ -23,6 +23,7 @@ void loop()
 
 int recupererDistanceCapteur(int numeroPin) {
   int val = analogRead(numeroPin);
+  Serial.println(val);
   return val;
 }
 
