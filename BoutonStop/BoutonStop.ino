@@ -53,8 +53,8 @@ void setup()
 BLYNK_WRITE(V2)
 {
   if(param.asInt()== 1){
-    servo.write(90);
     servo2.write(90);
+    servo.write(90);
   }
   else{
     servo.write(53);
