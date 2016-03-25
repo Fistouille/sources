@@ -32,7 +32,6 @@ void setup()
   myServo.write(130);
   myServo.write(53);
   Blynk.begin(auth, ssid, pass);
-  Serial.begin(9600);
 }
 
 void loop()
@@ -46,6 +45,7 @@ void loop()
 
 int recupererDistanceCapteur(int numeroPin) {
   int val = analogRead(numeroPin);
+  Serial.println(val);
   return val;
 }
 
