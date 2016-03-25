@@ -20,21 +20,21 @@ void loop() {
 }
 
 void gauche() {
-   myservo.write(77);    // vitesse tournant
-   myservo2.write(78); 
+   servo.write(77);    // vitesse tournant
+   servo2.write(78); 
 }
 
 void avancer() {
-   myservo.write(78);    // vitesse en avancant                           
-   myservo2.write(110); 
+   servo.write(78);    // vitesse en avancant                           
+   servo2.write(110); 
 }
 
 void lireValeur(int numeroPin) {
   int pin = analogRead(numeroPin);
   if(pin > 660) {
     Serial.println("alerte!");
-    myservo.write(77);    // vitesse tournant
-    myservo2.write(78); 
+    servo.write(77);    // vitesse tournant
+    servo2.write(78); 
     delay(200);
   }
   
