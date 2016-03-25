@@ -33,13 +33,14 @@ void lireValeur(int numeroPin) {
   int pin = analogRead(numeroPin);
   if(pin > 660) {
     Serial.println("alerte!");
-    gauche();
+    myservo.write(77);    // vitesse tournant
+    myservo2.write(78); 
     delay(200);
-    
   }
+  
   else {
-    Serial.println("tout va bien");
-    avancer();
+    servo.write(53);
+    servo2.write(130);
     delay(200);
   }
 }
