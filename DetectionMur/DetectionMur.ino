@@ -27,4 +27,4 @@ bool isColision(int numeroPin) {
   }
 }
 
-#include "DectionMur.h"
+#include "DetectionMur.h"
