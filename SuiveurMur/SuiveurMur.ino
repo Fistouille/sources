@@ -3,6 +3,7 @@
 #include <SPI.h>
 #include <WiFi101.h>
 #include <BlynkSimpleWiFiShield101.h>
+#include <ArduinoUnit.h>
 
 char auth[] = "2603b8b0a9ac4be5a9b8c8f04ceffecb";
 char ssid[] = "Wifi_Arduino";
@@ -39,20 +40,37 @@ BLYNK_WRITE(V2)
 */
 void loop() {
   //Blynk.run();
-  sigAvant = analogRead(0); 
-  sigGauche = analogRead(1);
+  Test::run();
+  doTurn();
+}
 
-  if(sigAvant < 660 &&/*rien devant et distance gauche compris entre xx et yy*/ sigGauche < 700 && sigGauche > 600)
+int recupererSignalCapteurAvant(int numeroPin){
+  int sigAvant = analogRead(numeroPin);
+  return sigAvant;
+}
+
+int recupererSignalCapteurGauche(int numeroPin){
+  int sigGauche = analogRead(numeroPin);
+  return sigGauche;
+}
+
+String doTurn(int(*pt1)(int), int(*pt2)(int), int numeroPinAvant, int numeroPinGauche){
+  int valeurAvant = (*pt1)(numeroPinAvant);
+  int valeurGauche = (*pt2)(numeroPinGauche);
+  if(valeurAvant < 660 &&/*rien devant et distance gauche compris entre xx et yy*/ valeurGauche < 700 && valeurGauche > 600)
     avancer();
-  else if(sigAvant < 660 &&/* rien devant et distance gauche inférieure à xx*/ sigGauche <= 600)
+    return "avancer";
+  else if(valeurAvant < 660 &&/* rien devant et distance gauche inférieure à xx*/ valeurGauche <= 600)
     droite();
-  else if(sigAvant < 660 &&/* rien devant et distance gauche supérieure à yy*/ sigGauche >= 700)
+    return "droite";
+  else if(valeurAvant < 660 &&/* rien devant et distance gauche supérieure à yy*/ valeurGauche >= 700)
     gauche();
-  else if(sigAvant >= 660)
+    return "gauche";
+  else if(valeurAvant >= 660)
     droiteObstacle();  
+    return "droiteObstacle";
 
   delay(100);
-  
 }
 
 /* ajouter le programme qui converti le signal en cm */

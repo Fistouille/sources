@@ -18,7 +18,7 @@ String testDirection(int sigAvant, int sigGauche) {
     return "gauche";
   else if(sigAvant < 660 &&/* rien devant et distance gauche supérieure à yy*/ sigGauche >= 700)
     return "droite";
-  else if(sigAvant >= 660)
+  else if(sigAvant >= 660)/*obstacle devant, eviter en tournant à droite*/
     return "droite";  
 }
 

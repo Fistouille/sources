@@ -17,3 +17,9 @@ test(ObstableDevant)
 {
   assertTrue(testDirection(700 , 650) == "droite");
 }
+
+test(FauxGauche)
+{
+  assertTrue(testDirection(670, 550) == "gauche");
+}
+
