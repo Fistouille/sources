@@ -31,41 +31,25 @@ void setup(void)
   Serial.begin(115200);
   Serial.println("Orientation Sensor Test"); Serial.println("");
 
-  /* Initialise the sensor */
   if(!bno.begin())
   {
-    /* There was a problem detecting the BNO055 ... check your connections */
+
     Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
     while(1);
   }
 
   delay(500);
-
-  /* Display some basic information on this sensor */
   displaySensorDetails();
 }
 
-/**************************************************************************/
-/*
-    Arduino loop function, called once 'setup' is complete (your own code
-    should go here)
-*/
-/**************************************************************************/
 void loop(void)
 {
-  /* Get a new sensor event */
   sensors_event_t event;
   bno.getEvent(&event);
 
   Serial.print(F("Orientation: "));
-  Serial.print((float)event.orientation.x);
-  Serial.print(F(" "));
-  Serial.print((float)event.orientation.y);
-  Serial.print(F(" "));
-  Serial.print((float)event.orientation.z);
-  Serial.println(F(""));
+  Serial.print((float)event.orientation.x); // Fournit un angle de 0 à 360°
 
-  /* Also send calibration data for each sensor. */
   uint8_t sys, gyro, accel, mag = 0;
   bno.getCalibration(&sys, &gyro, &accel, &mag);
   Serial.print(F("Calibration: "));
@@ -79,3 +63,4 @@ void loop(void)
 
   delay(100);
 }
+
