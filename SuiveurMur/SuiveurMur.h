@@ -1,9 +1,9 @@
 int retourSansObstacle(int pin){
-  return 700;
+  return 500;
 }
 
 int retourObstacle(int pin){
-  return 500;
+  return 700;
 }
 
 int bonneDistance(int pin){
@@ -19,10 +19,21 @@ int mauvaiseDistanceGauche(int pin){
 }
 
 test(Avancer){
-  assertTrue(doTurn(&retourSansObstacle, &bonneDistance, 0, 1));
+  assertEqual((char*)doTurn(&retourSansObstacle, &bonneDistance, 0, 1),(char*)"avancer");
 }
 
 test(TournerDroite){
-  assertTrue(doTurn(&retourSansObstacle, &mauvaiseDistanceDroite, 0, 1));
+  assertEqual((char*)doTurn(&retourSansObstacle, &mauvaiseDistanceDroite, 0, 1),(char*)"droite");
 }
 
+test(TournerGauche){
+  assertEqual((char*)doTurn(&retourSansObstacle, &mauvaiseDistanceGauche, 0, 1),(char*)"gauche");
+}
+
+test(FauxTournerGauche){
+  assertNotEqual((char*)doTurn(&retourSansObstacle, &mauvaiseDistanceDroite, 0, 1),(char*)"gauche");
+}
+
+test(TournerObstacle){
+  assertEqual((char*)doTurn(&retourObstacle, &mauvaiseDistanceDroite, 0, 1),(char*)"droiteObstacle");
+}

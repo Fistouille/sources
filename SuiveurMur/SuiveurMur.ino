@@ -5,6 +5,7 @@
 //#include <BlynkSimpleWiFiShield101.h>
 #include <ArduinoUnit.h>
 
+
 char auth[] = "2603b8b0a9ac4be5a9b8c8f04ceffecb";
 char ssid[] = "Wifi_Arduino";
 char pass[] = "aarduino"; 
@@ -18,7 +19,7 @@ int sigArriere;
   
 void setup() {
  // Blynk.begin(auth, ssid, pass);
-  //Serial.begin(115200);
+  Serial.begin(9600);
   myservoG.attach(12);  // attaches the servo on pin 12 to the servo object
   myservoD.attach(13);  // attaches the servo on pin 13 to the servo object
 }
@@ -54,7 +55,7 @@ int recupererSignalCapteurGauche(int numeroPin){
   return sigGauche;
 }
 
-String doTurn(int(*pt1)(int), int(*pt2)(int), int numeroPinAvant, int numeroPinGauche){
+char* doTurn(int(*pt1)(int), int(*pt2)(int), int numeroPinAvant, int numeroPinGauche){
   int valeurAvant = (*pt1)(numeroPinAvant);
   int valeurGauche = (*pt2)(numeroPinGauche);
   if(valeurAvant < 660 &&/*rien devant et distance gauche compris entre xx et yy*/ valeurGauche < 700 && valeurGauche > 600){
@@ -115,3 +116,4 @@ void arreter() {
    myservoD.write(90); 
 }
 
+#include "SuiveurMur.h"
