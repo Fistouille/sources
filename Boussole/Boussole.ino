@@ -24,6 +24,6 @@ void loop(void)
   sensors_event_t event; 
   bno.getEvent(&event);
   Serial.print("X: ");
-  Serial.println(event.orientation.x, 4);
+  Serial.println(event.orientation.x, 4); // Affiche les valeurs de l'angle X
   delay(100);
 }
