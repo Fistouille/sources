@@ -10,7 +10,17 @@ int palierCouleurBlanc = 130;
 int temps = 900;
 
 /* BOUSSOLE */
+#include <Adafruit_BNO055.h>
+#include <Adafruit_Sensor.h>
+
+#include <Wire.h>
+#include <utility/imumaths.h>
+
+#define BNO055_SAMPLERATE_DELAY_MS (100)
+
+Adafruit_BNO055 bno = Adafruit_BNO055(55);
 int tabValeursOrientationBoussole[] = {10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,180};
+
 
 void setup() {
   /* CAPTEUR NIVEAU DE GRIS */
@@ -21,6 +31,10 @@ void setup() {
   
   myservo.attach(12);  // attaches the servo on pin 12 to the servo object
   myservo2.attach(13);  // attaches the servo on pin 13 to the servo object
+
+  /* BOUSSOLE */
+  sensor_t sensor;
+  bno.getSensor(&sensor);
 }
 
 int ligneBlanche(){
@@ -62,10 +76,10 @@ void loop() {
   }else{
     Serial.println("0");
 
-    int orientation = Boussole.valeurOrientation();
+    int orientation = (float)event.orientation.x;
 
     for(int i = 0 ; i <= 35 ; ++i){
-      while(Boussole.valeurOrientation() != orientation + tabValeursOrientationBoussole[i]){
+      while((float)event.orientation.x != orientation + tabValeursOrientationBoussole[i]){
         gauche();
       }
       arreter();
