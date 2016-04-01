@@ -36,17 +36,30 @@ Serial.begin(9600);      // initialize serial communication
     delay(10000);
   }
 
- 
+   printWifiStatus();
    Udp.begin(localPort); 
 }
 
 void loop() {
   // if there's data available, read a packet
   int packetSize = Udp.parsePacket();
-  if(packetSize)
-  {
-    Serial.print("Received packet of size ");
-    Serial.println(packetSize);
-  }
+  Serial.println(Udp.read(packetBuffer,255));
   delay(10);
+}
+
+void printWifiStatus() {
+  // print the SSID of the network you're attached to:
+  Serial.print("SSID: ");
+  Serial.println(WiFi.SSID());
+
+  // print your WiFi shield's IP address:
+  IPAddress ip = WiFi.localIP();
+  Serial.print("IP Address: ");
+  Serial.println(ip);
+
+  // print the received signal strength:
+  long rssi = WiFi.RSSI();
+  Serial.print("signal strength (RSSI):");
+  Serial.print(rssi);
+  Serial.println(" dBm");
 }
