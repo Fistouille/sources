@@ -6,8 +6,8 @@ Servo myservo2;  // create servo object to control a servo
  /* CAPTEUR NIVEAU DE GRIS */
 int valeurCapteur;
 int valeurRetour;
-int palierCouleurBlanc = 130;
-int temps = 900;
+int palierCouleurBlanc = 160;
+int temps = 1;
 
 /* BOUSSOLE */
 #include <Wire.h>
@@ -21,34 +21,18 @@ int tabValeursOrientationBoussole[] = {10,20,30,40,50,60,70,80,90,100,110,120,13
 void setup() {
   /* CAPTEUR NIVEAU DE GRIS */
   Serial.begin(9600);
-
-  /* MOTEUR */
-  Serial.begin(115200);
   
-  myservo.attach(12);  // attaches the servo on pin 12 to the servo object
-  myservo2.attach(13);  // attaches the servo on pin 13 to the servo object
-
-  /* BOUSSOLE */
-  bno.setExtCrystalUse(true);
-}
-
-int ligneBlanche(){
-  valeurCapteur = analogRead(2);
-  
-  if(palierCouleurBlanc < valeurCapteur){
-    return 0;
-  }else if( palierCouleurBlanc > valeurCapteur){
-    return 1;
-  }
+  myservo.attach(8);  // attaches the servo on pin 12 to the servo object
+  myservo2.attach(9);  // attaches the servo on pin 13 to the servo object
 }
 
 //avancer
 void avancer() {
-   myservo.write(109);    // vitesse en reculant                          
-   myservo2.write(78); 
+    myservo2.write(109);    // vitesse en reculant
+     myservo.write(78);
 }
 
- // tourner à gauche
+ // tourner Ã  gauche
 void gauche() {
    myservo.write(109);    // vitesse tournant                           
    myservo2.write(110); 
@@ -62,15 +46,15 @@ void arreter() {
 
  
 void loop() {
-  valeurRetour = ligneBlanche();
-  if(valeurRetour == 1){
-    Serial.println("1");
-    avancer();
-    /*MOTEUR Avancer*/
+  
+  Serial.println("A");
+  delay(1);
+  valeurCapteur = analogRead(2);
+  
+  if(palierCouleurBlanc < valeurCapteur){
     
-  }else{
-    Serial.println("0");
-
+    Serial.println("PB");
+    
     bno.getEvent(&event);
     int orientation = event.orientation.x;
 
@@ -78,15 +62,27 @@ void loop() {
       bno.getEvent(&event);
       while(event.orientation.x != orientation + tabValeursOrientationBoussole[i]){
         gauche();
+        Serial.println("G");
         bno.getEvent(&event);
       }
       arreter();
-      valeurRetour = ligneBlanche();
+      
+      if(palierCouleurBlanc < valeurCapteur){
+        valeurRetour = 0;
+      }else if( palierCouleurBlanc > valeurCapteur){
+        valeurRetour =  1;
+      }
+      
       if(valeurRetour == 1){
         break;
       }
-      
     }
+    
+  }else if(palierCouleurBlanc > valeurCapteur){
+    Serial.println("B");
+    avancer();
+    /*MOTEUR Avancer*/
   }
  }
+
 
