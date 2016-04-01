@@ -42,7 +42,8 @@ void setup() {
 void loop() {
   //Blynk.run();
   Test::run();
-  //doTurn();
+  //doTurn(&recupererSignalCapteurAvant, &recupererSignalCapteurDroite, 0, 1);
+  
 }
 
 int recupererSignalCapteurAvant(int numeroPin){
@@ -58,21 +59,31 @@ int recupererSignalCapteurDroite(int numeroPin){
 char* doTurn(int(*pt1)(int), int(*pt2)(int), int numeroPinAvant, int numeroPinDroite){
   int valeurAvant = (*pt1)(numeroPinAvant);
   int valeurDroite = (*pt2)(numeroPinDroite);
-  if(valeurAvant < 660 &&/*rien devant et distance Droite compris entre xx et yy*/ valeurDroite < 710 && valeurDroite > 630){
+
+  Serial.print("capteur avant : ");
+  Serial.println(valeurAvant);
+  Serial.print("capteur droite : ");
+  Serial.println(valeurDroite);
+  
+  if(valeurAvant < 660 &&/*rien devant et distance Droite compris entre xx et yy*/ valeurDroite < 710 && valeurDroite > 610){
     avancer();
     return "avancer";
   }
-  else if(valeurAvant < 660 &&/* rien devant et distance Droite inférieure à xx*/ valeurDroite <= 630){
-    gauche();
-    return "gauche";
-  }
-  else if(valeurAvant < 660 &&/* rien devant et distance Droite supérieure à yy*/ valeurDroite >= 710){
+  else if(valeurAvant < 660 &&/* rien devant et distance Droite inférieure à xx*/ valeurDroite <= 610 && valeurDroite >= 450){
     droite();
     return "droite";
   }
+   else if(valeurAvant < 660 &&/* rien devant et distance Droite inférieure à xx*/ valeurDroite <= 610 && valeurDroite < 450){
+    TourneDroite();
+    return "droite";
+  }
+  else if(valeurAvant < 660 &&/* rien devant et distance Droite supérieure à yy*/ valeurDroite >= 710){
+    gauche();
+    return "gauche";
+  }
   else if(valeurAvant >= 660){
     gauche();  
-    return "droiteObstacle";
+    return "gauche";
   }
 
   delay(100);
@@ -85,27 +96,23 @@ void avancer() {
   myservoD.write(110);
 }
 
-//reculer
-void reculer() {
-  myservoG.write(109);    // vitesse en reculant
-  myservoD.write(78);
-}
 
 // tourner à droite
+void TourneDroite() {
+   myservoG.write(0);    // vitesse tournant
+   myservoD.write(0);
+    delay(100);
+   avancer();
+   delay(100);
+ 
+}
+
 void droite() {
    myservoG.write(0);    // vitesse tournant
-  myservoD.write(0);
- 
- 
+   myservoD.write(0);
 }
 
-// tourner en cas d'obstacle
-void droiteObstacle() {
-  myservoG.write(0);    // vitesse tournant
-  myservoD.write(0);
-}
-
-// tourner à Gauche
+// tourner à gauche
 void gauche() {
   myservoG.write(180);    // vitesse tournant
   myservoD.write(180);

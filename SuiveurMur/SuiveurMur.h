@@ -22,18 +22,18 @@ test(Avancer){
   assertEqual((char*)doTurn(&retourSansObstacle, &bonneDistance, 0, 1),(char*)"avancer");
 }
 
-test(TournerDroite){
-  assertEqual((char*)doTurn(&retourSansObstacle, &mauvaiseDistanceGauche, 0, 1),(char*)"droite");
-}
-
 test(TournerGauche){
-  assertEqual((char*)doTurn(&retourSansObstacle, &mauvaiseDistanceDroite, 0, 1),(char*)"gauche");
+  assertEqual((char*)doTurn(&retourSansObstacle, &mauvaiseDistanceGauche, 0, 1),(char*)"gauche");
 }
 
-test(FauxTournerDroite){
-  assertNotEqual((char*)doTurn(&retourSansObstacle, &mauvaiseDistanceDroite, 0, 1),(char*)"droite");
+test(TournerDroite){
+  assertEqual((char*)doTurn(&retourSansObstacle, &mauvaiseDistanceDroite, 0, 1),(char*)"droite");
+}
+
+test(FauxTournerGauche){
+  assertNotEqual((char*)doTurn(&retourSansObstacle, &mauvaiseDistanceDroite, 0, 1),(char*)"gauche");
 }
 
 test(TournerObstacle){
-  assertEqual((char*)doTurn(&retourObstacle, &mauvaiseDistanceDroite, 0, 1),(char*)"droiteObstacle");
+  assertEqual((char*)doTurn(&retourObstacle, &mauvaiseDistanceDroite, 0, 1),(char*)"gauche");
 }
