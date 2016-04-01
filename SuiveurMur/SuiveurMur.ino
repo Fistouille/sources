@@ -1,8 +1,10 @@
 #include <Servo.h>
-#define BLYNK_PRINT Serial    // Comment this out to disable prints and save space
+//#define BLYNK_PRINT Serial    // Comment this out to disable prints and save space
 #include <SPI.h>
-#include <WiFi101.h>
-#include <BlynkSimpleWiFiShield101.h>
+//#include <WiFi101.h>
+//#include <BlynkSimpleWiFiShield101.h>
+#include <ArduinoUnit.h>
+
 
 char auth[] = "2603b8b0a9ac4be5a9b8c8f04ceffecb";
 char ssid[] = "Wifi_Arduino";
@@ -12,17 +14,16 @@ Servo myservoD;  // create servo object to control a servo
 
 int sigAvant;
 int sigDroite;
-int sigGauche;
-int sigArriere;
 
 void setup() {
-  // Blynk.begin(auth, ssid, pass);
-  Serial.begin(115200);
+
+ // Blynk.begin(auth, ssid, pass);
+  Serial.begin(9600);
   myservoG.attach(12);  // attaches the servo on pin 12 to the servo object
   myservoD.attach(13);  // attaches the servo on pin 13 to the servo object
 }
 
-// Gauche de 0 a 90 pour avancer
+// Droite de 0 a 90 pour avancer
 // Droite de 180 a 90 pour avancer
 /*
   BLYNK_WRITE(V2)
@@ -38,7 +39,46 @@ void setup() {
   }
 */
 
+void loop() {
+  //Blynk.run();
+  Test::run();
+  //doTurn();
+}
 
+int recupererSignalCapteurAvant(int numeroPin){
+  int sigAvant = analogRead(numeroPin);
+  return sigAvant;
+}
+
+int recupererSignalCapteurDroite(int numeroPin){
+  int sigDroite = analogRead(numeroPin);
+  return sigDroite;
+}
+
+char* doTurn(int(*pt1)(int), int(*pt2)(int), int numeroPinAvant, int numeroPinDroite){
+  int valeurAvant = (*pt1)(numeroPinAvant);
+  int valeurDroite = (*pt2)(numeroPinDroite);
+  if(valeurAvant < 660 &&/*rien devant et distance Droite compris entre xx et yy*/ valeurDroite < 710 && valeurDroite > 630){
+    avancer();
+    return "avancer";
+  }
+  else if(valeurAvant < 660 &&/* rien devant et distance Droite inférieure à xx*/ valeurDroite <= 630){
+    gauche();
+    return "gauche";
+  }
+  else if(valeurAvant < 660 &&/* rien devant et distance Droite supérieure à yy*/ valeurDroite >= 710){
+    droite();
+    return "droite";
+  }
+  else if(valeurAvant >= 660){
+    gauche();  
+    return "droiteObstacle";
+  }
+
+  delay(100);
+}
+
+/* ajouter le programme qui converti le signal en cm */
 // avancer
 void avancer() {
   myservoG.write(78);    // vitesse en avancant
@@ -65,7 +105,7 @@ void droiteObstacle() {
   myservoD.write(0);
 }
 
-// tourner à gauche
+// tourner à Gauche
 void gauche() {
   myservoG.write(180);    // vitesse tournant
   myservoD.write(180);
@@ -78,24 +118,8 @@ void arreter() {
 }
 
 
-void loop() {
-  //Blynk.run();
-  sigAvant = analogRead(0);
-  sigGauche = analogRead(1);
 
-  Serial.println(sigAvant);
-  if (sigAvant >= 660)
-    gauche();
-  else if (sigAvant < 660 &&/*rien devant et distance gauche compris entre xx et yy*/ sigGauche < 710 && sigGauche > 630)
-    avancer();
-  else if (sigAvant < 660 &&/* rien devant et distance gauche inférieure à xx*/ sigGauche <= 630)
-    droite();
-  else if (sigAvant < 660 &&/* rien devant et distance gauche supérieure à yy*/ sigGauche >= 710)
-    gauche();
-
-  delay(100);
-}
 
 /* ajouter le programme qui converti le signal en cm */
 
-
+#include "SuiveurMur.h"
